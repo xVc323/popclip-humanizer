@@ -1,49 +1,37 @@
 # PopClip Humanizer Extension
 
-A PopClip extension that uses your fine-tuned Gemini model to make text sound more natural and human-like.
+A PopClip extension that humanizes text using a fine-tuned Gemini API model.
 
-## Prerequisites
+## Features
 
-- [PopClip](https://pilotmoon.com/popclip/) installed on your Mac
-- A Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+- Humanizes selected text using Gemini's fine-tuned model
+- Multiple response handling options (append/replace/copy)
+- Keyboard modifiers support (Shift for copy, Option to toggle replace)
+- Built-in example prompts for consistent results
 
-## Quick Setup
+## Installation
 
-1. Download the extension:
-   ```bash
-   git clone https://github.com/xVc323/popclip-humanizer.git
-   cd popclip-humanizer
-   ```
-
-2. Add your API key:
-   - Open `Humanize.popclipext/Config.yaml`
-   - Replace `YOUR_API_KEY` with your actual Gemini API key
-
-3. Install:
-   - Double-click the `Humanize.popclipext` folder
-   - PopClip will ask to install the extension
-   - Click "Install"
+1. Obtain a Gemini API key from Google AI Studio
+2. Install the extension in PopClip
+3. Configure your API key in the extension settings
 
 ## Usage
 
-1. Select any text
-2. Click the "H" icon in PopClip
-3. The humanized version will be copied to your clipboard
+1. Select any text you want to humanize
+2. Click the Humanize icon in PopClip
+3. The humanized text will be handled according to your settings
 
-## Example
+## Configuration
 
-```
-Input:  "The experimental results demonstrated a significant correlation between the studied variables."
-Output: "The experimental results proved a significative correlation between studied variables."
-```
+- API Key: Your Gemini API key
+- Response Handling: Choose how to handle the humanized text
+  - Append: Add below original text
+  - Replace: Replace selected text
+  - Copy: Copy to clipboard
 
-## Troubleshooting
+## Development
 
-If you see errors in PopClip's console:
-```bash
-defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
-```
-
-## License
-
-[MIT License](LICENSE)
+Built with:
+- PopClip Extension API
+- Gemini API
+- axios for HTTP requests
