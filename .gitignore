@@ -1,0 +1,5 @@
+# Generated files
+*.popclipextz
+
+# macOS
+.DS_Store
