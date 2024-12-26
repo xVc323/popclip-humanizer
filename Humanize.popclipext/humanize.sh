@@ -7,11 +7,11 @@ TEXT="$POPCLIP_TEXT"
 API_KEY="YOUR_API_KEY"
 MODEL="gemini-exp-1206"
 
-# Create the request payload with the same configuration as the Python code
+# Create the request payload - matching the Python structure exactly
 PAYLOAD="{
   \"contents\": [{
     \"parts\": [{
-      \"text\": \"input: $TEXT\"      
+      \"text\": \"input: $TEXT\"
     }]
   }],
   \"generationConfig\": {
@@ -24,12 +24,11 @@ PAYLOAD="{
 
 # Make the API request
 RESPONSE=$(curl -s -X POST \
-  "https://generativelanguage.googleapis.com/v1beta/models/$MODEL:generateContent?key=$API_KEY" \
+  "https://generativelanguage.googleapis.com/v1/models/$MODEL:generateContent?key=$API_KEY" \
   -H "Content-Type: application/json" \
-  -H "Accept: text/plain" \
   -d "$PAYLOAD")
 
-# Extract and process the response text (getting just the output response)
+# Extract and process the response
 PROCESSED_TEXT=$(echo "$RESPONSE" | grep -o '"text":"[^"]*"' | cut -d'"' -f4)
 
 # Copy the result to clipboard
