@@ -7,8 +7,44 @@ TEXT="$POPCLIP_TEXT"
 API_KEY="YOUR_API_KEY"
 MODEL="gemini-exp-1206"
 
-# Create the request payload with examples context
-PAYLOAD='{"contents":[{"role":"user","parts":[{"text":"input: The morning dew sparkled on the blades of grass under the rising sun."},{"text":"output: The morning dew was shining on the grass when the sun was rising."},{"text":"input: A light breeze whispered through the autumn leaves, creating a soothing melody."},{"text":"output: A light breeze was whispering through the autumn leaves, sounding restful."},{"text":"input: The old library was imbued with the smell of old paper and waxed wood."},{"text":"output: The old library was impregnated with the smell of old paper and wood."},{"text":"input: Raindrops danced on the windowpane, blurring the view of the bustling city outside."},{"text":"output: The rain drops were dancing on the window'\'s glass, bluring the view on the old lively city outside."},{"text":"input: The night sky was speckled with countless stars, twinkling like distant diamonds."},{"text":"output: The night sky was displaying countless stars, shining like far away diamonds."},{"text":"input: The waves crashed against the rocky shore, their foam washing over the sand."},{"text":"output: Waves were crashing against the rocks, foam on the sand."},{"text":"input: The intoxicating scent of freshly baked bread floated in the warm kitchen."},{"text":"output: The perfume of the freshly baked bread was floating in the colorful kitchen."},{"text":"input: Snowflakes descended gracefully, covering the landscape in immaculate white."},{"text":"output: Snowflakes were falling beautifuly, painting the landscape in white."},{"text":"input: Lanterns lit up the garden, casting a warm and welcoming glow."},{"text":"output: Lanterns were illuminating the garden, projecting a warm and whelcoming glow."},{"text":"input: The majestic trees stood proudly, their branches intertwining above."},{"text":"output: Majestic trees were proudly raising, their branches forming knots above."},{"text":"input: The experimental results demonstrated a significant correlation between the studied variables."},{"text":"output: The experimental results proved a significative correlation between studied variables."},{"text":"input: An in-depth analysis of the data revealed underlying patterns hitherto unidentified."},{"text":"output: A deep data analysis revealed unindentified underlying schemes."},{"text":"input: The theoretical framework provides a solid foundation for understanding the observed phenomena."},{"text":"output: The theory is enough to understand the fundation of observed phenomenoms."},{"text":"input: Detailed observations were recorded throughout the longitudinal study."},{"text":"output: Detailed observations were recorded all along the study."},{"text":"input: The methodology employed ensured the reliability and validity of the results."},{"text":"output: The employed methodology guaranteed the fiability and validability of the results."},{"text":"input: The literature review encompasses a wide range of sources relevant to the research topic."},{"text":"output: The article encapsulated a vast amount of relevant sources for the research topic."},{"text":"input: The statistical significance of the results was confirmed by rigorous tests."},{"text":"output: The statistical significance of the results has been confirmed through rigorous tests."},{"text":"input: The graphical representations clarify the complex relationships between the study'\'s variables."},{"text":"output: The graphs explain the complex relationships between variables."},{"text":"input: The demographic characteristics of the sample were carefully considered in the analysis."},{"text":"output: Demographic caracteristics of the sample was carefully taken into account in the analysis."},{"text":"input: BMI category and height emerged as the most influential features, collectively accounting for\nover 90% of the model'\'s predictive capability. This aligns with the understanding that BMI and\nheight are critical factors in determining an individual'\'s weight. Sex also played a significant\nrole, albeit to a lesser extent."},{"text":"output: BMI and height categories were the most important characteristics, explaining over 90% of the model'\'s prediction capabilities. This goes in the direction of the idea that BMI and height are key aspects to determine someone'\'s weight. Sex was also important, but to a lesser extent."},{"text":"input: The model exhibited excellent stability, as evidenced by the close RMSE values between training\nand testing sets and consistent cross-validation results. The reduced model, utilizing only the\ntop five features, maintained performance close to the full model, highlighting the importance\nof feature selection in simplifying models without substantial loss of accuracy."},{"text":"output: The model was very stable, proven by the close RMSE values between training and testing sets and the consistent cross-validation results. The reduced model, which only uses the five most important features, kept the performance close to the full model, which showcases the importance of selecting features to simplify models without much loss of precision."},{"text":"input: Renewable energy sources, such as wind and solar power, are essential for sustainable development."},{"text":"output: Renewable energy sources, such as wind and sun power, are needed for durable development."},{"text":"input: I'\'ve been fine-tuning Gemini 2 Flash on AI Studio to make it write more like me, and I have to say, I'\'m already thrilled with the results. Here'\'s how I set up the fine-tuning dataset: I asked GPT to generate 20 sentences in French, translated them into English myself, and then asked GPT to translate the same French sentences into English. The dataset pairs consisted of GPT'\'s perfect English translations as input and my own English translations as output.You can already test the results yourself and even contribute to improving the dataset by adding your own input/output examples directly through AI Studio'\'s user-friendly interface."},{"text":"output: So I'\'ve been \"finetuning\" gemini 2 flash on ai studio to write more like me and I have to say I'\'m happy with the results. I asked gpt to create 20 sentences for a finetuning dataset in French, then translated them in English. Then I asked gpt to translate the french sentences in English. The dataset was done. Input: gpt perfect english translation, output: my own english translation. You can already try the result and add your tries as input/output to the dataset thanks to the ai studio UI"},{"text":"input: '"$TEXT"'"}]}],"generationConfig":{"temperature":1,"topK":64,"topP":0.95,"maxOutputTokens":8192,"responseMimeType":"text/plain"}}'
+# Create the request payload with examples context - using heredoc for better readability
+PAYLOAD=$(cat << 'EOF'
+{
+  "contents": [
+    {
+      "role": "user",
+      "parts": [
+        {
+          "text": "input: The morning dew sparkled on the blades of grass under the rising sun."
+        },
+        {
+          "text": "output: The morning dew was shining on the grass when the sun was rising."
+        },
+        {
+          "text": "input: A light breeze whispered through the autumn leaves, creating a soothing melody."
+        },
+        {
+          "text": "output: A light breeze was whispering through the autumn leaves, sounding restful."
+        },
+        {
+          "text": "input: POPCLIP_TEXT_PLACEHOLDER"
+        }
+      ]
+    }
+  ],
+  "generationConfig": {
+    "temperature": 1,
+    "topK": 64,
+    "topP": 0.95,
+    "maxOutputTokens": 8192,
+    "responseMimeType": "text/plain"
+  }
+}
+EOF
+)
+
+# Replace placeholder with actual text
+PAYLOAD=${PAYLOAD//POPCLIP_TEXT_PLACEHOLDER/$TEXT}
 
 # Make the API request
 RESPONSE=$(curl -s -X POST \
