@@ -1,1 +1,71 @@
-IyBBZHZhbmNlZCBDdXN0b21pemF0aW9uIEd1aWRlCgpUaGlzIGd1aWRlIGNvdmVycyBhZHZhbmNlZCBjb25maWd1cmF0aW9uIG9wdGlvbnMgZm9yIHRoZSBQb3BDbGlwIEh1bWFuaXplciBleHRlbnNpb24uCgojIyBCYXNpYyBDb25maWd1cmF0aW9uCgpUaGUgbWFpbiBjb25maWd1cmF0aW9uIGZpbGUgaXMgYENvbmZpZy55YW1sYC4gSGVyZSdzIGFuIGV4cGxhbmF0aW9uIG9mIGVhY2ggZmllbGQ6CgpgYGB5YW1sCm5hbWU6IEh1bWFuaXplICAgICAgICAgICAgIyBOYW1lIHNob3duIGluIFBvcENsaXAgbWVudQppY29uOiBIICAgICAgICAgICAgICAgICAgICMgTWVudSBpY29uCmFmdGVyOiBwYXN0ZS1yZXN1bHQgICAgICAgIyBBY3Rpb24gYWZ0ZXIgcHJvY2Vzc2luZwpyZXF1aXJlbWVudHM6CiAgLSBwYXN0ZSAgICAgICAgICAgICAgICAgIyBSZXF1aXJlZCBjYXBhYmlsaXRpZXMKYGBgCgojIyBDdXN0b21pemF0aW9uIE9wdGlvbnMKCiMjIyAxLiBJY29uIEN1c3RvbWl6YXRpb24KQ2hvb3NlIGZyb206Ci0gU2luZ2xlIGNoYXJhY3RlcjogYGljb246IEhgCi0gRW1vamk6IGBpY29uOiDwn5KsYAotIEltYWdlIGZpbGU6IGBpY29uOiBpY29uLnBuZ2AgKFBORywgMjU2w5gyNTZweCByZWNvbW1lbmRlZCkKCiMjIyAyLiBNb2RlbCBTZXR0aW5ncwpBZGp1c3QgdGhlIEdlbWluaSBtb2RlbCBiZWhhdmlvciBpbiBgaHVtYW5pemUuc2hgOgoKYGBgYmFzaApNT0RFTD0iZ2VtaW5pLWV4cC0xMjA2IiAgIyBZb3VyIG1vZGVsIElEClBBWUxPQUQ9InsKICAiY29udGVudHMiOlt7CiAgICAicGFydHMiOlt7InRleHQiOiJpbnB1dDogJFRFWFQifV0KICB9XSwKICAiZ2VuZXJhdGlvbkNvbmZpZyI6IHsKICAgICJ0ZW1wZXJhdHVyZSI6IDAuNywgICAgIyBBZGp1c3QgY3JlYXRpdml0eSAoMC4wLTEuMCkKICAgICJ0b3BLIjogNDAsICAgICAgICAgICAjIE51bWJlciBvZiB0b2tlbnMgdG8gY29uc2lkZXIKICAgICJ0b3BQIjogMC45NSwgICAgICAgICAjIE51Y2xldXMgc2FtcGxpbmcKICAgICJtYXhPdXRwdXRUb2tlbnMiOiAxMDI0CiAgfQp9IgpgYGAKCiMjIyAzLiBBY3Rpb24gQmVoYXZpb3IKQ29udHJvbCB3aGF0IGhhcHBlbnMgYWZ0ZXIgcHJvY2Vzc2luZzoKYGBgeWFtbAphZnRlcjogcGFzdGUtcmVzdWx0ICAgICMgUmVwbGFjZSBzZWxlY3RlZCB0ZXh0CmFmdGVyOiBjb3B5LXJlc3VsdCAgICAgIyBKdXN0IGNvcHkgdG8gY2xpcGJvYXJkCmBgYAoKIyMjIDQuIE11bHRpcGxlIEFjdGlvbnMKQWRkIHZhcmlhdGlvbnMgb2YgdGhlIGh1bWFuaXplcjoKYGBgeWFtbAphY3Rpb25zOgogIC0gbmFtZTogSHVtYW5pemUKICAgIGljb246IEgKICAgIHNjcmlwdDogaHVtYW5pemUuc2gKICAtIG5hbWU6IEZvcm1hbAogICAgaWNvbjogRgogICAgc2NyaXB0OiBmb3JtYWxpemUuc2gKYGBgCgojIyBEZWJ1Z2dpbmcgVGlwcwoKMS4gRW5hYmxlIGRlYnVnIG1vZGU6CiAgIGBgYGJhc2gKICAgZGVmYXVsdHMgd3JpdGUgY29tLnBpbG90bW9vbi5wb3BjbGlwIEVuYWJsZUV4dGVuc2lvbkRlYnVnIC1ib29sIFlFUwogICBgYGAKCjIuIENoZWNrIENvbnNvbGUuYXBwIGZvciBsb2dzCjMuIFRlc3QgQVBJIGNhbGxzIHNlcGFyYXRlbHkgdXNpbmcgYGN1cmxgCjQuIFZlcmlmeSBmaWxlIHBlcm1pc3Npb25zIChgY2htb2QgK3hgKQ==
+# Advanced Customization Guide
+
+This guide covers advanced configuration options for the PopClip Humanizer extension.
+
+## Basic Configuration
+
+The main configuration file is `Config.yaml`. Here's an explanation of each field:
+
+```yaml
+name: Humanize            # Name shown in PopClip menu
+icon: H                   # Menu icon
+after: paste-result       # Action after processing
+requirements:
+  - paste                 # Required capabilities
+```
+
+## Customization Options
+
+### 1. Icon Customization
+Choose from:
+- Single character: `icon: H`
+- Emoji: `icon: 💬`
+- Image file: `icon: icon.png` (PNG, 256×256px recommended)
+
+### 2. Model Settings
+Adjust the Gemini model behavior in `humanize.sh`:
+
+```bash
+MODEL="gemini-exp-1206"  # Your model ID
+PAYLOAD="{
+  \"contents\":[{
+    \"parts\":[{\"text\":\"input: $TEXT\"}]
+  }],
+  \"generationConfig\": {
+    \"temperature\": 0.7,    # Adjust creativity (0.0-1.0)
+    \"topK\": 40,           # Number of tokens to consider
+    \"topP\": 0.95,         # Nucleus sampling
+    \"maxOutputTokens\": 1024
+  }
+}"
+```
+
+### 3. Action Behavior
+Control what happens after processing:
+```yaml
+after: paste-result    # Replace selected text
+after: copy-result     # Just copy to clipboard
+```
+
+### 4. Multiple Actions
+Add variations of the humanizer:
+```yaml
+actions:
+  - name: Humanize
+    icon: H
+    script: humanize.sh
+  - name: Formal
+    icon: F
+    script: formalize.sh
+```
+
+## Debugging Tips
+
+1. Enable debug mode:
+   ```bash
+   defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
+   ```
+
+2. Check Console.app for logs
+3. Test API calls separately using `curl`
+4. Verify file permissions (`chmod +x`)
