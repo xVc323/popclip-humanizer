@@ -1,5 +1,5 @@
 name: Humanize
-identifier: com.patrickcheurfa.popclip.extension.humanize
+identifier: com.pat.popclip.extension.humanize
 icon: H
 description: Humanizes text using fine-tuned Gemini API
 shell script:
