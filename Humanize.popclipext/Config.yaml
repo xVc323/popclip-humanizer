@@ -6,26 +6,8 @@ shell script: |
     #!/bin/bash
     curl -s -X POST \
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent?key=YOUR_API_KEY" \
-      -H 'Content-Type: application/json' \
-      -d @<(echo '{
-        "contents": [{
-          "role": "user",
-          "parts": [
-            {"text": "input: The morning dew sparkled on the blades of grass under the rising sun."},
-            {"text": "output: The morning dew was shining on the grass when the sun was rising."},
-            {"text": "input: A light breeze whispered through the autumn leaves, creating a soothing melody."},
-            {"text": "output: A light breeze was whispering through the autumn leaves, sounding restful."},
-            {"text": "input: '
-"$POPCLIP_TEXT"
-'"}]}],
-        "generationConfig": {
-          "temperature": 1,
-          "topK": 64,
-          "topP": 0.95,
-          "maxOutputTokens": 8192,
-          "responseMimeType": "text/plain"
-        }
-      }') | grep -o '"text":"[^"]*"' | cut -d'"' -f4 | pbcopy
+      -H "Content-Type: application/json" \
+      -d "{\"contents\":[{\"role\":\"user\",\"parts\":[{\"text\":\"input: The morning dew sparkled on the blades of grass under the rising sun.\"},{\"text\":\"output: The morning dew was shining on the grass when the sun was rising.\"},{\"text\":\"input: A light breeze whispered through the autumn leaves, creating a soothing melody.\"},{\"text\":\"output: A light breeze was whispering through the autumn leaves, sounding restful.\"},{\"text\":\"input: $POPCLIP_TEXT\"}]}],\"generationConfig\":{\"temperature\":1,\"topK\":64,\"topP\":0.95,\"maxOutputTokens\":8192,\"responseMimeType\":\"text/plain\"}}" | grep -o '"text":"[^"]*"' | cut -d'"' -f4 | pbcopy
 after: paste-result
 requirements:
   - paste
