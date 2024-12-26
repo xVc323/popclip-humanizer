@@ -22,10 +22,20 @@ A PopClip extension that uses a fine-tuned Gemini model to make your text sound 
 
 ## Installation
 
-1. Download the latest release from the releases page
+### For Users
+1. Download the latest `popclip-humanizer.popclipextz` from the releases page
 2. Double-click the downloaded file to install in PopClip
 3. When prompted, enter your Gemini API key
 4. Select your preferred text handling mode (copy/append/replace)
+
+### For Developers
+1. Clone this repository
+2. Make changes in the `popclip-humanizer.popclipext` directory
+3. Test directly with PopClip by loading the .popclipext directory
+4. To create installable extension:
+   ```bash
+   zip -r popclip-humanizer.popclipextz popclip-humanizer.popclipext
+   ```
 
 ## Usage
 
@@ -48,12 +58,6 @@ This extension is built with:
 - Google's Generative AI API (Gemini)
 - axios for API requests
 
-To modify or contribute:
-1. Clone this repository
-2. Modify the source in `src/Humanize.js`
-3. Test using PopClip's extension development tools
-4. Submit a pull request
-
 ## License
 
 MIT License - see LICENSE file for details
@@ -62,5 +66,5 @@ MIT License - see LICENSE file for details
 
 If you encounter any issues or have suggestions:
 1. Check the existing issues in this repository
-2. Create a new issue if needed
+2. Create a new issue with details about your problem
 3. Include your PopClip version and macOS version in bug reports
