@@ -1,5 +1,5 @@
 name: Humanize
-identifier: com.patrickcheurfa.popclip.extension.humanize
+identifier: com.pat.popclip.extension.humanize
 icon: H
 description: Humanizes text using fine-tuned Gemini API
 shell script:
@@ -9,24 +9,42 @@ shell script:
     API_KEY="YOUR_API_KEY"
     MODEL="gemini-exp-1206"
     
-    # Create the request payload
+    # Create the request payload with examples context
     PAYLOAD="{
-      \"contents\": [{
-        \"parts\": [{
-          \"text\": \"input: $TEXT\"
-        }]
-      }],
+      \"contents\": [
+        {
+          \"role\": \"user\",
+          \"parts\": [
+            {
+              \"text\": \"input: The morning dew sparkled on the blades of grass under the rising sun.\"
+            },
+            {
+              \"text\": \"output: The morning dew was shining on the grass when the sun was rising.\"
+            },
+            {
+              \"text\": \"input: A light breeze whispered through the autumn leaves, creating a soothing melody.\"
+            },
+            {
+              \"text\": \"output: A light breeze was whispering through the autumn leaves, sounding restful.\"
+            },
+            {
+              \"text\": \"input: $TEXT\"
+            }
+          ]
+        }
+      ],
       \"generationConfig\": {
         \"temperature\": 1,
-        \"topP\": 0.95,
         \"topK\": 64,
-        \"maxOutputTokens\": 8192
+        \"topP\": 0.95,
+        \"maxOutputTokens\": 8192,
+        \"responseMimeType\": \"text/plain\"
       }
     }"
     
     # Make the API request
     RESPONSE=$(curl -s -X POST \
-      "https://generativelanguage.googleapis.com/v1/models/$MODEL:generateContent?key=$API_KEY" \
+      "https://generativelanguage.googleapis.com/v1beta/models/$MODEL:generateContent?key=$API_KEY" \
       -H "Content-Type: application/json" \
       -d "$PAYLOAD")
     
