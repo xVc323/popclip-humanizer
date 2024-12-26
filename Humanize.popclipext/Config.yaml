@@ -1,20 +1,4 @@
-name: Humanize
-identifier: com.patrickcheurfa.popclip.extension.humanize
-icon: H
-description: Humanizes text using fine-tuned Gemini API
-shell script:
-  script: |
-    #!/bin/bash
-    TEXT="$POPCLIP_TEXT"
-    API_KEY="YOUR_API_KEY"
-    MODEL="gemini-exp-1206"
-    PAYLOAD="{\"contents\":[{\"parts\":[{\"text\":\"input: $TEXT\"}]}]}"
-    RESPONSE=$(curl -s -X POST \
-      "https://generativelanguage.googleapis.com/v1beta/models/$MODEL:generateContent?key=$API_KEY" \
-      -H "Content-Type: application/json" \
-      -d "$PAYLOAD")
-    PROCESSED_TEXT=$(echo "$RESPONSE" | grep -o '"text":"[^"]*"' | cut -d'"' -f4)
-    echo -n "$PROCESSED_TEXT" | pbcopy
-after: paste-result
-requirements:
-  - paste
+{
+  "encoding": "base64",
+  "content": "bmFtZTogSHVtYW5pemUKaWRlbnRpZmllcjogY29tLnBhdHJpY2tjaGV1cmZhLnBvcGNsaXAuZXh0ZW5zaW9uLmh1bWFuaXplCmljb246IEgKZGVzY3JpcHRpb246IEh1bWFuaXplcyB0ZXh0IHVzaW5nIGZpbmUtdHVuZWQgR2VtaW5pIEFQSQpzaGVsbCBzY3JpcHQ6CiAgc2NyaXB0OiB8CiAgICAjIS9iaW4vYmFzaAogICAgVEVYVD0iJFBPUENMSVBfVEVYVCIKICAgIEFQSV9LRVk9IllPVVJfQVBJX0tFWSIKICAgIE1PREVMPSJnZW1pbmktZXhwLTEyMDYiCiAgICBQQVlMT0FEPSJ7XCJjb250ZW50c1wiOlt7XCJwYXJ0c1wiOlt7XCJ0ZXh0XCI6XCJpbnB1dDogJFRFWFRcIn1dfV19IgogICAgUkVTUE9OU0U9JChjdXJsIC1zIC1YIFBPU1QgXAogICAgICAiaHR0cHM6Ly9nZW5lcmF0aXZlbGFuZ3VhZ2UuZ29vZ2xlYXBpcy5jb20vdjFiZXRhL21vZGVscy8kTU9ERUw6Z2VuZXJhdGVDb250ZW50P2tleT0kQVBJX0tFWSIgXAogICAgICAtSCAiQ29udGVudC1UeXBlOiBhcHBsaWNhdGlvbi9qc29uIiBcCiAgICAgIC1kICIkUEFZTE9BRCIpCiAgICBQUk9DRVNTRURfVEVYVD0kKGVjaG8gIiRSRVNQT05TRSIgfCBncmVwIC1vICcidGV4dCI6IlteIl0qIicgfCBjdXQgLWQnIicgLWY0KQogICAgZWNobyAtbiAiJFBST0NFU1NFRF9URVhUIiB8IHBiY29weQphZnRlcjogcGFzdGUtcmVzdWx0CnJlcXVpcmVtZW50czoKICAtIHBhc3Rl"
+}
