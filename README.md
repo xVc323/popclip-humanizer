@@ -15,25 +15,32 @@ Before you can use this extension, make sure you have:
 
 - [PopClip](https://pilotmoon.com/popclip/) installed on your Mac
 - A Gemini API key (Get one from [Google AI Studio](https://makersuite.google.com/app/apikey))
-- curl (pre-installed on macOS)
+- curl (pre-installed on macOS, [download for Windows](https://curl.se/windows/))
 - Your fine-tuned Gemini model ID (default: gemini-exp-1206)
 
-## Quick Start
+## Installation
 
 1. Download the extension:
    ```bash
    git clone https://github.com/xVc323/popclip-humanizer.git
    cd popclip-humanizer
    ```
+   Or download the ZIP file and extract it.
 
 2. Set up your API key:
    - Open `Humanize.popclipext/Config.yaml`
    - Replace `YOUR_API_KEY` with your actual Gemini API key
 
 3. Make the script executable:
-   ```bash
-   chmod +x Humanize.popclipext/humanize.sh
-   ```
+   - On macOS:
+     ```bash
+     chmod +x Humanize.popclipext/humanize.sh
+     ```
+   - On Windows:
+     ```powershell
+     # Open PowerShell as Administrator
+     icacls "Humanize.popclipext\humanize.sh" /grant Users:F
+     ```
 
 4. Install the extension:
    - Double-click the `Humanize.popclipext` folder
@@ -61,6 +68,36 @@ Check out the [Advanced Customization Guide](ADVANCED.md) for:
 - Custom icons
 - Debugging tips
 
+## Troubleshooting
+
+### macOS
+1. If the script isn't executable:
+   ```bash
+   chmod +x Humanize.popclipext/humanize.sh
+   ```
+2. Check PopClip's console output:
+   ```bash
+   defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
+   ```
+
+### Windows
+1. If you get permission errors:
+   ```powershell
+   # Run as Administrator
+   icacls "Humanize.popclipext\humanize.sh" /reset
+   icacls "Humanize.popclipext\humanize.sh" /grant Users:F
+   ```
+2. Make sure curl is in your PATH:
+   ```powershell
+   # Check if curl is available
+   curl --version
+   ```
+
+### General
+- Check if your API key is correctly set in Config.yaml
+- Verify your internet connection
+- Make sure the Gemini API is available in your region
+
 ## Contributing
 
 Contributions are welcome! Feel free to:
@@ -80,4 +117,7 @@ If you encounter any issues or have questions:
 
 1. Check the [issues](https://github.com/xVc323/popclip-humanizer/issues) page
 2. Create a new issue if your problem isn't already reported
-3. Include your PopClip version and macOS version in bug reports
+3. Include your:
+   - PopClip version
+   - Operating system (macOS/Windows) and version
+   - Any error messages
