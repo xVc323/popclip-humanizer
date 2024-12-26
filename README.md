@@ -1,1 +1,24 @@
-base64:IyBQb3BDbGlwIEh1bWFuaXplIEV4dGVuc2lvbgoKVGhpcyBpcyBhIFBvcENsaXAgZXh0ZW5zaW9uIHRoYXQgdXNlcyB5b3VyIGZpbmUtdHVuZWQgR2VtaW5pIG1vZGVsIHRvIGh1bWFuaXplIHRleHQuCgojIyBJbnN0YWxsYXRpb24KCjEuIERvd25sb2FkIHRoZSBgSHVtYW5pemUucG9wY2xpcGV4dGAgZm9sZGVyCjIuIEVkaXQgYENvbmZpZy55YW1sYCBhbmQgcmVwbGFjZSBgWU9VUl9BUElfS0VZYCB3aXRoIHlvdXIgYWN0dWFsIEdlbWluaSBBUEkga2V5CjMuIERvdWJsZS1jbGljayB0aGUgYEh1bWFuaXplLnBvcGNsaXBleHRgIGZvbGRlciB0byBpbnN0YWxsCgojIyBVc2FnZQoKMS4gU2VsZWN0IGFueSB0ZXh0CjIuIENsaWNrIHRoZSAiSCIgaWNvbiBpbiBQb3BDbGlwCjMuIFRoZSBodW1hbml6ZWQgdmVyc2lvbiB3aWxsIGJlIGNvcGllZCB0byB5b3VyIGNsaXBib2FyZAoKIyMgUmVxdWlyZW1lbnRzCgotIFBvcENsaXAgaW5zdGFsbGVkCi0gR2VtaW5pIEFQSSBrZXkKLSBjdXJsIChwcmUtaW5zdGFsbGVkIG9uIG1hY09TKQoKIyMgTGljZW5zZQoKTUlUIExpY2Vuc2UK
+# PopClip Humanize Extension
+
+This extension uses your fine-tuned Gemini model to humanize text.
+
+## Installation
+
+1. Replace `YOUR_API_KEY` in `humanize.sh` with your actual Gemini API key
+2. Make the script executable:
+   ```bash
+   chmod +x humanize.sh
+   ```
+3. Double-click the Humanize.popclipext folder to install it in PopClip
+
+## Usage
+
+1. Select any text
+2. Click the "H" icon in PopClip
+3. The humanized version will be copied to your clipboard
+
+## Requirements
+
+- PopClip installed
+- Gemini API key
+- curl (pre-installed on macOS)
