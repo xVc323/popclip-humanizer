@@ -18,7 +18,7 @@ Before you can use this extension, make sure you have:
 - curl (pre-installed on macOS)
 - Your fine-tuned Gemini model ID (default: gemini-exp-1206)
 
-## Installation
+## Quick Start
 
 1. Download the extension:
    ```bash
@@ -54,23 +54,12 @@ Humanized: "The experimental results proved a significative correlation between 
 
 ## Customization
 
-You can customize the extension by editing `Config.yaml`:
-
-- Change the icon (default: "H")
-- Modify the model ID if you're using a different Gemini model
-- Adjust the API endpoint if needed
-
-## Troubleshooting
-
-If the extension doesn't work:
-
-1. Check if your API key is correctly set in Config.yaml
-2. Ensure the script is executable (`chmod +x humanize.sh`)
-3. Check PopClip's console output for errors:
-   ```bash
-   defaults write com.pilotmoon.popclip EnableExtensionDebug -bool YES
-   ```
-4. Make sure your internet connection is working
+Check out the [Advanced Customization Guide](ADVANCED.md) for:
+- Detailed configuration options
+- Model parameter tuning
+- Multiple action setup
+- Custom icons
+- Debugging tips
 
 ## Contributing
 
@@ -83,13 +72,7 @@ Contributions are welcome! Feel free to:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Based on the PopClip Extensions Developer Reference
-- Uses the Gemini API for text transformation
-- Inspired by the need for more natural-sounding text
+This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
 
 ## Support
 
