@@ -7,7 +7,7 @@
 // popclipVersion: 4586
 // keywords: gemini humanize
 // entitlements: [network]
-// required: [axios]
+// require: axios
 
 const examplePairs = [
   {
@@ -61,19 +61,29 @@ define({
           // Prepare request body
           const parts = [...examplePairs, { text: `input: ${cleanInput}` }];
           
-          // Make API request
-          const response = await axios({
-            method: 'post',
-            url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent',
-            params: { key: options.apikey },
-            data: {
-              contents: [{ role: 'user', parts }],
-              generationConfig
+          // Make API request using fetch instead of axios
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent?key=${options.apikey}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                contents: [{ role: 'user', parts }],
+                generationConfig
+              })
             }
-          });
+          );
 
+          if (!response.ok) {
+            throw new Error(`API responded with status ${response.status}`);
+          }
+
+          const data = await response.json();
+          
           // Extract response text
-          const humanizedText = response.data.candidates[0].content.parts[0].text.trim();
+          const humanizedText = data.candidates[0].content.parts[0].text.trim();
           if (!humanizedText) {
             throw new Error('Empty response from API');
           }
