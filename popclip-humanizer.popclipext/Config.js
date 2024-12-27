@@ -7,7 +7,6 @@
 // popclipVersion: 4586
 // keywords: gemini humanize
 // entitlements: [network]
-// require: axios
 
 const examplePairs = [
   {
@@ -53,69 +52,71 @@ define({
   actions: [
     {
       title: 'Humanize',
-      code: async (input, options) => {
-        try {
-          // Clean and prepare input text
-          const cleanInput = input.text.trim();
-          
-          // Prepare request body
-          const parts = [...examplePairs, { text: `input: ${cleanInput}` }];
-          
-          // Make API request using fetch instead of axios
-          const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent?key=${options.apikey}`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                contents: [{ role: 'user', parts }],
-                generationConfig
-              })
+      code: function(input, options) {
+        // Clean and prepare input text
+        const cleanInput = input.text.trim();
+        
+        // Prepare request body
+        const parts = [...examplePairs, { text: `input: ${cleanInput}` }];
+        
+        // Make API request using XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent?key=${options.apikey}`;
+        
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              try {
+                const response = JSON.parse(xhr.responseText);
+                const humanizedText = response.candidates[0].content.parts[0].text.trim();
+                
+                if (!humanizedText) {
+                  popclip.showText('Error: Empty response from API');
+                  return;
+                }
+
+                // Handle output based on mode and modifiers
+                const copy = options.textMode === 'copy' || popclip.modifiers.shift;
+                let replace = options.textMode === 'replace';
+                if (popclip.modifiers.option) {
+                  replace = !replace;
+                }
+
+                if (copy) {
+                  popclip.copyText(humanizedText);
+                } else if (replace) {
+                  popclip.pasteText(humanizedText);
+                } else {
+                  popclip.pasteText(`${cleanInput}\n${humanizedText}`);
+                }
+
+                popclip.showSuccess();
+              } catch (e) {
+                popclip.showText(`Error parsing response: ${e.message}`);
+              }
+            } else {
+              try {
+                const errorResponse = JSON.parse(xhr.responseText);
+                popclip.showText(`API Error: ${errorResponse.error.message}`);
+              } catch (e) {
+                popclip.showText(`Error: HTTP ${xhr.status}`);
+              }
             }
-          );
-
-          if (!response.ok) {
-            throw new Error(`API responded with status ${response.status}`);
           }
-
-          const data = await response.json();
-          
-          // Extract response text
-          const humanizedText = data.candidates[0].content.parts[0].text.trim();
-          if (!humanizedText) {
-            throw new Error('Empty response from API');
-          }
-
-          // Handle output based on mode and modifiers
-          const copy = options.textMode === 'copy' || popclip.modifiers.shift;
-          let replace = options.textMode === 'replace';
-          if (popclip.modifiers.option) {
-            replace = !replace;
-          }
-
-          if (copy) {
-            popclip.copyText(humanizedText);
-          } else if (replace) {
-            popclip.pasteText(humanizedText);
-          } else {
-            popclip.pasteText(`${cleanInput}\n${humanizedText}`);
-          }
-
-          popclip.showSuccess();
+        };
+        
+        try {
+          xhr.send(JSON.stringify({
+            contents: [{ role: 'user', parts }],
+            generationConfig
+          }));
         } catch (e) {
-          const errorMsg = getErrorInfo(e);
-          popclip.showText(errorMsg);
+          popclip.showText(`Error sending request: ${e.message}`);
         }
       },
     },
   ],
 });
-
-function getErrorInfo(error) {
-  if (error?.response?.data?.error?.message) {
-    return `Gemini API Error: ${error.response.data.error.message}`;
-  }
-  return `Error: ${error.message || 'Unknown error occurred'}`;
-}
