@@ -31,70 +31,77 @@ const generationConfig = {
   maxOutputTokens: 8192,
 };
 
-export const options = [
-  {
-    identifier: 'apikey',
-    label: 'API Key',
-    type: 'secret',
-    description: 'Your Gemini API key',
-  },
-  {
-    identifier: 'textMode',
-    label: 'Response Handling',
-    type: 'multiple',
-    values: ['append', 'replace', 'copy'],
-    valueLabels: ['Append', 'Replace', 'Copy'],
-    defaultValue: 'copy',
-    description: 'Append the response, replace the selected text, or copy to clipboard.',
-  },
-];
+define({
+  options: [
+    {
+      identifier: 'apikey',
+      label: 'API Key',
+      type: 'secret',
+      description: 'Your Gemini API key',
+    },
+    {
+      identifier: 'textMode',
+      label: 'Response Handling',
+      type: 'multiple',
+      values: ['append', 'replace', 'copy'],
+      valueLabels: ['Append', 'Replace', 'Copy'],
+      defaultValue: 'copy',
+      description: 'Append the response, replace the selected text, or copy to clipboard.',
+    },
+  ],
 
-const humanize = async (input, options) => {
-  try {
-    // Clean and prepare input text
-    const cleanInput = input.text.trim();
-    
-    // Prepare request body
-    const parts = [...examplePairs, { text: `input: ${cleanInput}` }];
-    
-    // Make API request
-    const response = await axios({
-      method: 'post',
-      url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent',
-      params: { key: options.apikey },
-      data: {
-        contents: [{ role: 'user', parts }],
-        generationConfig
-      }
-    });
+  actions: [
+    {
+      title: 'Humanize',
+      code: async (input, options) => {
+        try {
+          // Clean and prepare input text
+          const cleanInput = input.text.trim();
+          
+          // Prepare request body
+          const parts = [...examplePairs, { text: `input: ${cleanInput}` }];
+          
+          // Make API request
+          const response = await axios({
+            method: 'post',
+            url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent',
+            params: { key: options.apikey },
+            data: {
+              contents: [{ role: 'user', parts }],
+              generationConfig
+            }
+          });
 
-    // Extract response text
-    const humanizedText = response.data.candidates[0].content.parts[0].text.trim();
-    if (!humanizedText) {
-      throw new Error('Empty response from API');
-    }
+          // Extract response text
+          const humanizedText = response.data.candidates[0].content.parts[0].text.trim();
+          if (!humanizedText) {
+            throw new Error('Empty response from API');
+          }
 
-    // Handle output based on mode and modifiers
-    const copy = options.textMode === 'copy' || popclip.modifiers.shift;
-    let replace = options.textMode === 'replace';
-    if (popclip.modifiers.option) {
-      replace = !replace;
-    }
+          // Handle output based on mode and modifiers
+          const copy = options.textMode === 'copy' || popclip.modifiers.shift;
+          let replace = options.textMode === 'replace';
+          if (popclip.modifiers.option) {
+            replace = !replace;
+          }
 
-    if (copy) {
-      popclip.copyText(humanizedText);
-    } else if (replace) {
-      popclip.pasteText(humanizedText);
-    } else {
-      popclip.pasteText(`${cleanInput}\n${humanizedText}`);
-    }
+          if (copy) {
+            popclip.copyText(humanizedText);
+          } else if (replace) {
+            popclip.pasteText(humanizedText);
+          } else {
+            popclip.pasteText(`${cleanInput}\n${humanizedText}`);
+          }
 
-    popclip.showSuccess();
-  } catch (e) {
-    const errorMsg = getErrorInfo(e);
-    popclip.showText(errorMsg);
-  }
-};
+          popclip.showSuccess();
+        } catch (e) {
+          const errorMsg = getErrorInfo(e);
+          popclip.showText(errorMsg);
+        }
+      },
+    },
+  ],
+});
 
 function getErrorInfo(error) {
   if (error?.response?.data?.error?.message) {
@@ -102,10 +109,3 @@ function getErrorInfo(error) {
   }
   return `Error: ${error.message || 'Unknown error occurred'}`;
 }
-
-export const actions = [
-  {
-    title: 'Humanize',
-    code: humanize,
-  },
-];
