@@ -1,7 +1,7 @@
 // #popclip
 // name: Humanize
 // icon: wand-sparkles
-// identifier: com.xvc323.popclip.extension.humanizer
+// identifier: com.pilotmoon.popclip.extension.humanizer
 // description: Humanize the selected text using fine-tuned Gemini API
 // app: { name: Gemini API, link: 'https://ai.google.dev/docs' }
 // popclipVersion: 4586
@@ -36,7 +36,7 @@ define({
     {
       identifier: 'apikey',
       label: 'API Key',
-      type: 'secret',
+      type: 'string',
       description: 'Your Gemini API key',
     },
     {
