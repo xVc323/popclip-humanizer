@@ -39,15 +39,6 @@ define({
       description: 'Your Gemini API key',
     },
     {
-      identifier: 'model',
-      label: 'Model',
-      type: 'multiple',
-      values: ['gemini-exp-1206', 'gemini-2.0-flash-exp'],
-      valueLabels: ['Gemini Experimental', 'Gemini 2.0 Flash'],
-      defaultValue: 'gemini-exp-1206',
-      description: 'Choose which fine-tuned model to use',
-    },
-    {
       identifier: 'textMode',
       label: 'Response Handling',
       type: 'multiple',
@@ -70,7 +61,7 @@ define({
         
         // Make API request using XMLHttpRequest
         const xhr = new XMLHttpRequest();
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${options.model}:generateContent?key=${options.apikey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-exp-1206:generateContent?key=${options.apikey}`;
         
         xhr.open('POST', url, true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -99,7 +90,8 @@ define({
                 } else if (replace) {
                   popclip.pasteText(humanizedText);
                 } else {
-                  popclip.pasteText(`${cleanInput}\n${humanizedText}`);
+                  popclip.pasteText(`${cleanInput}\
+${humanizedText}`);
                 }
 
                 popclip.showSuccess();
